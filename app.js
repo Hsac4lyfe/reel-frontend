@@ -1,4 +1,4 @@
-const API_URL = http://localhost:8000; // replace with Railway URL later
+const API_URL = "http://localhost:8000"; // replace with Railway URL later
 async function go() {
   const url = document.getElementById("url").value.trim();
   if (!url) return alert("Paste a URL first");
@@ -17,3 +17,4 @@ async function go() {
   }
 
 }
+
