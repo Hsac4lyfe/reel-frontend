@@ -9,14 +9,21 @@ async function go() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ url })
     });
+
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error(errText);
+    }
+
     const data = await res.json();
     document.getElementById("result").value = data.transcript;
     document.getElementById("status").innerText = "";
   } catch (e) {
     document.getElementById("status").innerText = "Error: " + e.message;
   }
-
 }
+
+
 
 
 
