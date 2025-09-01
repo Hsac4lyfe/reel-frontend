@@ -5,8 +5,20 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  flex-direction: column; /* stack GIF and box vertically */
+  min-height: 100vh;
   margin: 0;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title-gif {
+  width: 180px;  /* smaller GIF */
+  margin-bottom: 1rem; /* space between gif and box */
 }
 
 .container {
@@ -18,68 +30,3 @@ body {
   box-shadow: 0px 4px 15px rgba(0,0,0,0.5);
   text-align: center;
 }
-
-.title-gif {
-  width: 250px;       /* fixed width */
-  max-width: 80%;     /* scales down on mobile */
-  margin-bottom: 2rem;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-input, button, textarea {
-  width: 100%;
-  margin: 0.5rem 0;
-  padding: 0.75rem;
-  font-size: 1rem;
-  border-radius: 8px;
-  border: none;
-  font-family: 'Roboto', sans-serif;
-}
-
-input, textarea {
-  background: #1e1e1e;
-  color: #e0e0e0;
-  border: 1px solid #444;
-}
-
-button {
-  background: #3a3a3a;
-  color: #ffffff;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-button:hover {
-  background: #575757;
-}
-
-#copyBtn {
-  margin-top: 0.5rem;
-  background: #4CAF50;
-  font-weight: bold;
-}
-
-#copyBtn:hover {
-  background: #45a049;
-}
-
-#status {
-  text-align: center;
-  margin: 0.5rem 0;
-  color: #f0ad4e; /* amber for status */
-}
-
-#copyStatus {
-  text-align: center;
-  margin-top: 0.5rem;
-  color: #4CAF50; /* green */
-  font-weight: bold;
-  display: none; /* hidden by default */
-}
-
-
-
-
-
