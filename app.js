@@ -1,8 +1,11 @@
-const API_URL = "http://127.0.0.1:5000"; // replace with Railway URL later
+const API_URL = "http://127.0.0.1:5000"; 
 async function go() {
   const url = document.getElementById("url").value.trim();
   if (!url) return alert("Paste a URL first");
+
   document.getElementById("status").innerText = "Transcribing…";
+  document.getElementById("copyStatus").style.display = "none";
+
   try {
     const res = await fetch(API_URL + "/transcribe", {
       method: "POST",
@@ -11,8 +14,8 @@ async function go() {
     });
 
     if (!res.ok) {
-      const errText = await res.text();
-      throw new Error(errText);
+      const err = await res.json();
+      throw new Error(JSON.stringify(err));
     }
 
     const data = await res.json();
@@ -21,6 +24,18 @@ async function go() {
   } catch (e) {
     document.getElementById("status").innerText = "Error: " + e.message;
   }
+}
+
+function copyText() {
+  const resultBox = document.getElementById("result");
+  resultBox.select();
+  resultBox.setSelectionRange(0, 99999); // for mobile
+  navigator.clipboard.writeText(resultBox.value);
+
+  // Show "Copied." message
+  const copyStatus = document.getElementById("copyStatus");
+  copyStatus.style.display = "block";
+  copyStatus.innerText = "Copied.";
 }
 
 
