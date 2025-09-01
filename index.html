@@ -1,16 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Reel Transcriber</title>
+  <title>Shorts 2 Text</title>
   <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>Instagram Reel Transcriber</h1>
-  <input id="url" placeholder="Paste Reel URL here" />
-  <button onclick="go()">Transcribe</button>
-  <p id="status"></p>
-  <textarea id="result" rows="15" readonly></textarea>
+  <div class="container">
+    <h1><strong>Shorts 2 Text</strong></h1>
+    <input id="url" placeholder="Paste Reel / TikTok / YouTube link here" />
+    <button onclick="go()">Transcribe</button>
+    <p id="status"></p>
+    <textarea id="result" rows="15" readonly></textarea>
+    <button id="copyBtn" onclick="copyText()">Copy</button>
+    <p id="copyStatus"></p>
+  </div>
 
   <script src="app.js"></script>
 </body>
