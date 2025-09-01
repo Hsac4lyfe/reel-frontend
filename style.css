@@ -20,8 +20,8 @@ body {
 }
 
 .title-gif {
-  width: 100%;
-  max-width: 500px;   /* adjust size */
+  width: 250px;       /* fixed width */
+  max-width: 80%;     /* scales down on mobile */
   margin-bottom: 2rem;
   display: block;
   margin-left: auto;
@@ -78,6 +78,7 @@ button:hover {
   font-weight: bold;
   display: none; /* hidden by default */
 }
+
 
 
 
