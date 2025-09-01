@@ -1,2 +1,77 @@
-body { font-family: Arial; max-width: 600px; margin: 2rem auto; padding: 1rem; }
-input, button, textarea { width: 100%; margin: 0.5rem 0; padding: 0.5rem; font-size: 1rem; }
+body {
+  background-color: #1e1e1e; /* dark background like ChatGPT dark mode */
+  color: #e0e0e0;
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 600px;
+  padding: 2rem;
+  background: #2a2a2a;
+  border-radius: 12px;
+  box-shadow: 0px 4px 15px rgba(0,0,0,0.5);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+input, button, textarea {
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  font-family: 'Roboto', sans-serif;
+}
+
+input, textarea {
+  background: #1e1e1e;
+  color: #e0e0e0;
+  border: 1px solid #444;
+}
+
+button {
+  background: #3a3a3a;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #575757;
+}
+
+#copyBtn {
+  margin-top: 0.5rem;
+  background: #4CAF50;
+  font-weight: bold;
+}
+
+#copyBtn:hover {
+  background: #45a049;
+}
+
+#status {
+  text-align: center;
+  margin: 0.5rem 0;
+  color: #f0ad4e; /* amber for status */
+}
+
+#copyStatus {
+  text-align: center;
+  margin-top: 0.5rem;
+  color: #4CAF50; /* green */
+  font-weight: bold;
+  display: none; /* hidden by default */
+}
