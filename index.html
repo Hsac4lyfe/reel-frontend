@@ -1,20 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8" />
   <title>Shorts 2 Text</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Logo above the container -->
+  <!-- GIF Logo above the box -->
   <img src="shorts2text.gif" alt="Shorts 2 Text" class="title-gif" />
 
   <div class="container">
     <input id="url" placeholder="Paste Reel / TikTok / YouTube link here" />
-    <button onclick="go()">Transcribe</button>
+    
+    <div class="button-group">
+      <button onclick="go()">Transcribe</button>
+    </div>
+
     <p id="status"></p>
     <textarea id="result" readonly></textarea>
-    <button id="copyBtn" onclick="copyText()">Copy</button>
+
+    <div class="button-group">
+      <button id="copyBtn" onclick="copyText()">Copy</button>
+    </div>
+
     <p id="copyStatus"></p>
   </div>
 
