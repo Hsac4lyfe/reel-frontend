@@ -1,10 +1,10 @@
-const API_URL = "http://127.0.0.1:5000"; 
+const API_URL = "http://localhost:5000"; // replace with server URL later
+
 async function go() {
   const url = document.getElementById("url").value.trim();
   if (!url) return alert("Paste a URL first");
 
   document.getElementById("status").innerText = "Transcribing…";
-  document.getElementById("copyStatus").style.display = "none";
 
   try {
     const res = await fetch(API_URL + "/transcribe", {
@@ -13,32 +13,42 @@ async function go() {
       body: JSON.stringify({ url })
     });
 
-    if (!res.ok) {
-      const err = await res.json();
-      throw new Error(JSON.stringify(err));
-    }
-
     const data = await res.json();
-    document.getElementById("result").value = data.transcript;
-    document.getElementById("status").innerText = "";
+
+    if (res.ok) {
+      const resultBox = document.getElementById("result");
+      resultBox.value = data.transcript;
+      autoResize(resultBox);
+      document.getElementById("status").innerText = "";
+    } else {
+      document.getElementById("status").innerText = "Error: " + data.detail;
+    }
   } catch (e) {
     document.getElementById("status").innerText = "Error: " + e.message;
   }
 }
 
 function copyText() {
-  const resultBox = document.getElementById("result");
-  resultBox.select();
-  resultBox.setSelectionRange(0, 99999); // for mobile
-  navigator.clipboard.writeText(resultBox.value);
+  const result = document.getElementById("result");
+  result.select();
+  result.setSelectionRange(0, 99999);
+  navigator.clipboard.writeText(result.value);
 
-  // Show "Copied." message
   const copyStatus = document.getElementById("copyStatus");
-  copyStatus.style.display = "block";
   copyStatus.innerText = "Copied.";
+  copyStatus.style.display = "block";
+
+  setTimeout(() => {
+    copyStatus.style.display = "none";
+  }, 2000);
 }
 
+function autoResize(textarea) {
+  textarea.style.height = "auto"; // reset
+  textarea.style.height = textarea.scrollHeight + "px"; // expand
+}
 
-
-
-
+window.addEventListener("DOMContentLoaded", () => {
+  const resultBox = document.getElementById("result");
+  resultBox.addEventListener("input", () => autoResize(resultBox));
+});
