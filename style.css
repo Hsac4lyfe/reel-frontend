@@ -1,85 +1,54 @@
-body {
-  background-color: #1e1e1e; /* dark background like ChatGPT dark mode */
-  color: #e0e0e0;
-  font-family: 'Roboto', sans-serif;
-  display: flex;
-  flex-direction: column;  /* stack logo + box */
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
+const API_URL = "http://localhost:5000"; // replace with server URL later
+
+async function go() {
+  const url = document.getElementById("url").value.trim();
+  if (!url) return alert("Paste a URL first");
+
+  document.getElementById("status").innerText = "Transcribing…";
+
+  try {
+    const res = await fetch(API_URL + "/transcribe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ url })
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      const resultBox = document.getElementById("result");
+      resultBox.value = data.transcript;
+      autoResize(resultBox);
+      document.getElementById("status").innerText = "";
+    } else {
+      document.getElementById("status").innerText = "Error: " + data.detail;
+    }
+  } catch (e) {
+    document.getElementById("status").innerText = "Error: " + e.message;
+  }
 }
 
-.container {
-  width: 100%;
-  max-width: 600px;
-  padding: 2rem;
-  background: #2a2a2a;
-  border-radius: 12px;
-  box-shadow: 0px 4px 15px rgba(0,0,0,0.5);
-  text-align: center;
+function copyText() {
+  const result = document.getElementById("result");
+  result.select();
+  result.setSelectionRange(0, 99999);
+  navigator.clipboard.writeText(result.value);
+
+  const copyStatus = document.getElementById("copyStatus");
+  copyStatus.innerText = "Copied.";
+  copyStatus.style.display = "block";
+
+  setTimeout(() => {
+    copyStatus.style.display = "none";
+  }, 2000);
 }
 
-.title-gif {
-  width: 100%;
-  max-width: 300px;   /* smaller logo */
-  margin-bottom: 1rem;
-  display: block;
+function autoResize(textarea) {
+  textarea.style.height = "auto"; // reset
+  textarea.style.height = textarea.scrollHeight + "px"; // expand
 }
 
-input, button, textarea {
-  width: 100%;
-  margin: 0.5rem 0;
-  padding: 0.75rem;
-  font-size: 1rem;
-  border-radius: 8px;
-  border: none;
-  font-family: 'Roboto', sans-serif;
-}
-
-input, textarea {
-  background: #1e1e1e;
-  color: #e0e0e0;
-  border: 1px solid #444;
-}
-
-textarea {
-  min-height: 150px;
-  resize: none;        /* disable resize handle */
-  overflow-y: hidden;  /* hides scrollbars until needed */
-}
-
-button {
-  background: #3a3a3a;
-  color: #ffffff;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-button:hover {
-  background: #575757;
-}
-
-#copyBtn {
-  margin-top: 0.5rem;
-  background: #4CAF50;
-  font-weight: bold;
-}
-
-#copyBtn:hover {
-  background: #45a049;
-}
-
-#status {
-  text-align: center;
-  margin: 0.5rem 0;
-  color: #f0ad4e; /* amber for status */
-}
-
-#copyStatus {
-  text-align: center;
-  margin-top: 0.5rem;
-  color: #4CAF50; /* green */
-  font-weight: bold;
-  display: none; /* hidden by default */
-}
+window.addEventListener("DOMContentLoaded", () => {
+  const resultBox = document.getElementById("result");
+  resultBox.addEventListener("input", () => autoResize(resultBox));
+});
