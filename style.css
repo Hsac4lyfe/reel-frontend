@@ -82,3 +82,10 @@ button:hover {
   font-weight: bold;
   display: none; /* hidden until "Copied" */
 }
+
+textarea {
+  resize: none;          /* disable user resizing */
+  overflow-y: auto;      /* show vertical scrollbar when needed */
+  overflow-x: hidden;    /* no horizontal scrollbar */
+  max-height: 400px;     /* keep it from growing too tall */
+}
