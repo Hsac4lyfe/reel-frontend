@@ -1,14 +1,13 @@
 body {
-  background-color: #1e1e1e; /* dark background like ChatGPT */
+  background-color: #1e1e1e; /* dark background like ChatGPT dark mode */
   color: #e0e0e0;
   font-family: 'Roboto', sans-serif;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  flex-direction: column;  /* stack logo + box */
+  justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
-  padding-top: 2rem;
 }
 
 .container {
@@ -22,8 +21,10 @@ body {
 }
 
 .title-gif {
-  width: 280px;     /* smaller logo */
+  width: 100%;
+  max-width: 300px;   /* smaller logo */
   margin-bottom: 1rem;
+  display: block;
 }
 
 input, button, textarea {
@@ -36,7 +37,6 @@ input, button, textarea {
   font-family: 'Roboto', sans-serif;
 }
 
-/* Dark theme input + textarea */
 input, textarea {
   background: #1e1e1e;
   color: #e0e0e0;
@@ -44,11 +44,11 @@ input, textarea {
 }
 
 textarea {
-  min-height: 200px;
-  resize: vertical; /* keeps dark theme even when resized */
+  min-height: 150px;
+  resize: none;        /* disable resize handle */
+  overflow-y: hidden;  /* hides scrollbars until needed */
 }
 
-/* Buttons */
 button {
   background: #3a3a3a;
   color: #ffffff;
@@ -60,7 +60,6 @@ button:hover {
   background: #575757;
 }
 
-/* Copy button */
 #copyBtn {
   margin-top: 0.5rem;
   background: #4CAF50;
@@ -71,17 +70,16 @@ button:hover {
   background: #45a049;
 }
 
-/* Status messages */
 #status {
   text-align: center;
   margin: 0.5rem 0;
-  color: #f0ad4e;
+  color: #f0ad4e; /* amber for status */
 }
 
 #copyStatus {
   text-align: center;
   margin-top: 0.5rem;
-  color: #4CAF50;
+  color: #4CAF50; /* green */
   font-weight: bold;
-  display: none;
+  display: none; /* hidden by default */
 }
