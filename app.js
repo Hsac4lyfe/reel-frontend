@@ -70,7 +70,19 @@ async function go() {
 
           progressBar.style.width = "100%";
           statusEl.textContent = "Transcription complete!";
-          resultEl.value = resultData.transcript;
+
+          // ✅ Handle transcript correctly (string or object)
+          if (typeof resultData.transcript === "string") {
+            resultEl.value = resultData.transcript;
+          } else if (
+            resultData.transcript &&
+            typeof resultData.transcript === "object" &&
+            resultData.transcript.transcript
+          ) {
+            resultEl.value = resultData.transcript.transcript;
+          } else {
+            resultEl.value = JSON.stringify(resultData.transcript, null, 2);
+          }
 
           // Re-enable button
           transcribeBtn.disabled = false;
