@@ -39,8 +39,10 @@ input, textarea {
 
 textarea {
   min-height: 200px;
-  resize: none;        /* remove resize handle */
-  overflow-y: hidden;  /* auto-resize instead of scrollbar */
+  resize: none;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 400px;
 }
 
 button {
@@ -55,10 +57,16 @@ button {
   transition: background 0.3s ease;
   border-radius: 8px;
   font-weight: bold;
+  border: none;
 }
 
 button:hover {
   background: #575757;
+}
+
+button:disabled {
+  background: #555;
+  cursor: not-allowed;
 }
 
 #copyBtn {
@@ -83,13 +91,6 @@ button:hover {
   display: none; /* hidden until "Copied" */
 }
 
-textarea {
-  resize: none;          /* disable user resizing */
-  overflow-y: auto;      /* show vertical scrollbar when needed */
-  overflow-x: hidden;    /* no horizontal scrollbar */
-  max-height: 400px;     /* keep it from growing too tall */
-}
-
 #progress-container {
   width: 100%;
   background: #444;
@@ -111,5 +112,3 @@ textarea {
   font-weight: bold;
   margin: 0.5rem 0;
 }
-
-
