@@ -42,7 +42,7 @@ async function go() {
     }
 
     const taskId = data.task_id;
-    statusEl.textContent = "Processing... please wait.";
+    statusEl.textContent = "Processing...";
 
     // Start timer
     timerInterval = setInterval(() => {
@@ -50,33 +50,50 @@ async function go() {
       timerEl.textContent = `Time: ${secondsElapsed}s`;
     }, 1000);
 
-    // Fake progress fill (until done)
-    let progress = 0;
-    const fakeProgress = setInterval(() => {
-      if (progress < 95) {
-        progress += 5;
-        progressBar.style.width = progress + "%";
-      }
-    }, 2000);
-
-    // Step 2: Poll for result
+    // Step 2: Poll for result with real progress updates
     const interval = setInterval(async () => {
-      const res = await fetch(`http://127.0.0.1:5000/result/${taskId}`);
-      const resultData = await res.json();
+      try {
+        const res = await fetch(`http://127.0.0.1:5000/result/${taskId}`);
+        const resultData = await res.json();
 
-      if (resultData.status === "done") {
+        // Update progress bar + status text
+        if (resultData.progress !== undefined) {
+          progressBar.style.width = resultData.progress + "%";
+        }
+        if (resultData.step) {
+          statusEl.textContent = `Status: ${resultData.step}`;
+        }
+
+        if (resultData.status === "done") {
+          clearInterval(interval);
+          clearInterval(timerInterval);
+
+          progressBar.style.width = "100%";
+          statusEl.textContent = "Transcription complete!";
+          resultEl.value = resultData.transcript;
+
+          // Re-enable button
+          transcribeBtn.disabled = false;
+        }
+
+        if (resultData.status === "error") {
+          clearInterval(interval);
+          clearInterval(timerInterval);
+
+          progressBar.style.width = "100%";
+          statusEl.textContent = `Error: ${resultData.error}`;
+
+          // Re-enable button
+          transcribeBtn.disabled = false;
+        }
+      } catch (err) {
         clearInterval(interval);
-        clearInterval(fakeProgress);
         clearInterval(timerInterval);
-
-        progressBar.style.width = "100%";
-        statusEl.textContent = "Transcription complete!";
-        resultEl.value = resultData.transcript;
-
-        // Re-enable button
+        statusEl.textContent = "Error fetching progress.";
+        console.error(err);
         transcribeBtn.disabled = false;
       }
-    }, 3000); // poll every 3s
+    }, 2000); // poll every 2s
 
   } catch (err) {
     statusEl.textContent = "Error submitting job.";
