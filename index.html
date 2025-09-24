@@ -12,9 +12,14 @@
   <div class="container">
     <input id="url" placeholder="Paste Reel / TikTok / YouTube link here" />
 
-    <div class="button-group">
-      <button id="transcribeBtn" onclick="go()">Transcribe</button>
-    </div>
+  <div class="button-group">
+    <select id="formatSelect">
+      <option value="plain" selected>Plain Text</option>
+      <option value="timestamps">With Timestamps</option>
+    </select>
+    <button id="transcribeBtn" onclick="go()">Transcribe</button>
+  </div>
+
 
     <!-- Timer + Progress bar -->
     <div id="progress-container">
@@ -35,3 +40,4 @@
   <script src="app.js"></script>
 </body>
 </html>
+
