@@ -3,6 +3,7 @@ let secondsElapsed = 0;
 
 async function go() {
   const url = document.getElementById("url").value;
+  const format = document.getElementById("formatSelect").value; // <-- new dropdown value
   const statusEl = document.getElementById("status");
   const resultEl = document.getElementById("result");
   const copyStatus = document.getElementById("copyStatus");
@@ -31,7 +32,7 @@ async function go() {
     const response = await fetch("http://127.0.0.1:5000/transcribe", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ url })
+      body: JSON.stringify({ url, format }) // <-- include format in payload
     });
 
     const data = await response.json();
